@@ -159,7 +159,7 @@ Canvas和SVG都是用于在Web浏览器中创建图形的技术，但它们有�
 
 ```html
 <!-- 使用方法1： -->
-<label for="mobile">Account:</label>
+<label for="account">Account:</label>
 <input type="text" id="account"/>
 
 <!-- 使用方法2： -->
