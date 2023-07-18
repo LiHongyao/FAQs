@@ -1,4 +1,4 @@
-### 001：`src` 和 `href` 的区别？
+### 001：`src` 和 `href` 的区别？⭐️
 
 `src` 和 `href` 用于指定不同类型资源的引用路径，它们的区别如下：
 
@@ -31,7 +31,7 @@
 
 > **Tips：**可通过 `document.compatMode` 获取
 
-### 004：script  标签中 `defer` 和 `async` 的区别？*
+### 004：script  标签中 `defer` 和 `async` 的区别？⭐️
 
 在`<script>`标签中，`defer`和`async`是两个用于控制脚本加载和执行行为的属性，它们的区别如下：
 
@@ -79,7 +79,7 @@ meta 标签由 name 和 content 属性定义，**用来描述网页文档的属�
 
 根据设备屏幕大小和分辨率选择最合适的图像进行显示。
 
-### 008：说一下 Web Workers *
+### 008：说一下 Web Workers ⭐️
 
 Web Workers 是 HTML5 标准中提供的一种在浏览器中运行多线程 JavaScript 的机制。它允许开发者在主线程之外创建一个或多个后台线程，并通过消息传递机制进行通信。Web Workers 可以用于执行计算密集型任务，从而避免阻塞用户界面的情况出现。但是需要注意的是，由于 Web Workers 运行在沙箱环境中，因此不能直接访问 DOM 和其他浏览器 API，需要通过消息传递（postMessage）与主线程进行交互。	
 
