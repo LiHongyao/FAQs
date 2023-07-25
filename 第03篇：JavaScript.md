@@ -14,9 +14,9 @@
 
 ### 003：传值与传址
 
-传值：值传递，基本数据类型（数值、字符串、布尔、null、undefined）
+传值：值传递，原始类型（String、Number、Boolean、null、undefined、Symbol、BigInt）
 
-传值：地址传递，对象类型（对象、数组、函数）
+传值：地址传递，对象类型（对象、数组、函数..）
 
 ### 004：如何准确判断数组类型 ⭐️
 
@@ -29,80 +29,30 @@
 
 参考 「第5章·数组对象APIs」
 
-### 006：数组去重
+### 006：如何理解深浅拷贝？⭐️
 
-```js
-var nums = [1, 2, 3, 1, 3, 4, 5, 4];
-// 方法1：利用set特性
-console.log(Array.from(new Set(nums)));
-// 方法2：遍历(for/forEach...)
-var t = [];
-nums.forEach((m) => {
-  if (!t.includes(m)) {
-    t.push(m);
-  }
-});
-console.log(t);
-// 方法3：reduce
-console.log(
-  nums.reduce((t, m) => {
-    if (!t.includes(m)) {
-      t.push(m);
-    }
-    return t;
-  }, [])
-);
-// 方法4：filter
-console.log(nums.filter((m, i) => nums.indexOf(m) === i));
-```
+浅拷贝：指针拷贝
 
-### 007：数组求交集
+- `Object.create()`
+- `Object.assign()`
+- `...`：扩展运算符
 
-```js
-var a = [1, 2, 3, 4, 5];
-var b = [2, 4, 6, 8, 10];
+深拷贝：值拷贝
 
-// 方法1：使用双重循环遍历两个数组，将它们的共同元素加入新数组中。时间复杂度为 O(n^2)。
-var intersection = [];
-for (var i = 0; i < a.length; i++) {
-  for (var j = 0; j < b.length; j++) {
-    if (a[i] === b[j]) {
-      intersection.push(a[i]);
-    }
-  }
-}
-console.log(intersection);
-
-// 方法2：filter + includes 过滤出第一个数组中同时也在第二个数组中出现的元素。时间复杂度为 O(n^2)。
-var intersection = a.filter((m) => b.includes(m));
-console.log(intersection);
-
-// 方法3：set + filter 时间复杂度为 O(n)。
-var set = new Set(a);
-var intersection = b.filter((item) => set.has(item));
-console.log(intersection);
-
-// 方法4：map + filter 时间复杂度为 O(n)。
-var map = new Map();
-a.forEach((k) => map.set(k, 1));
-var intersection = b.filter((k) => map.has(k));
-console.log(intersection);
-
-// 方法5：HashMap 时间复杂度为 O(n)。
-var hashMap = {};
-a.forEach((k) => (hashMap[k] = 1));
-var intersection = b.filter((k) => !!hashMap[k]);
-console.log(intersection);
-```
+- `JSON.parse(JSON.stringify(object))`，使用JSON拷贝局限性如下：
+  - 忽略undefined、Symbol
+  - 不能序列化函数
+  - 不能解决循环引用的对象 
+- 递归遍历复制
 
 ### 008：清空数组元素
 
 - `arr.length = 0`：没有重新开辟内存（推荐）
 - `arr = []`：重新开辟内存
 
-### 009：call/bind/apply 的区别
+### 009：call/bind/apply 的区别 ⭐️
 
-它们都是用于改变函数执行上下文（`this`）的方法：
+它们都是用于改变函数执行上下文（*this*）的方法：
 
 1. `call(this, ...args)`：修改 `this` 指针并 **立即执行函数**；
 2. `bind(this, ...args)`：修改 `this` 指针但是 **不会立即执行函数**，而是 **返回一个新函数**；
@@ -119,14 +69,26 @@ console.log(intersection);
 
 综合考虑，ES6 的 class 继承是 JavaScript 中对象继承的最优方案，因为它语法简单、易于理解，同时可以轻松地继承父类构造函数中的属性和方法以及父类原型链上的属性和方法。
 
-### 011：js基本数据类型
+### 011：有哪些数据类型及其区别是什么？⭐️
 
-基础类型有：Number、String、Boolean、Null、Undefined、Symbol、BigInt。
+原始数据类（原始数据类型）：`Number`、`String`、`Boolean`、`Null`、`Undefined`、`Symbol`、`BigInt`。
 
-### 012：typeof 和 instanceof 的区别？
+引用数据类型：`Object`、`Function`、`Date`...
 
-1. typeof 主要用来判断数据类型
-2. instanceof 主要用于判断对象是否是某个构造函数的实例
+两种类型的区别在于 **存储位置的不同**：（*了解*）
+
+- 原始数据类型：存储在 **栈** 中，占据空间小、大小固定，属于被频繁使用数据；
+- 引用数据类型：存储在 **堆** 中，占据空间大、大小不固定。如果存储在栈中，将会影响程序运行的性能；引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。
+
+### 012：typeof 类型判断 ⭐️
+
+1. typeof 能否正确判断类型？
+   - 对于原始类型来说，除了null都可以显示正确的类型
+   - 对于对象类型来说，除了函数都会显示 object
+   - 所以所typeof不能正确的判断变量到底是什么类型
+2. typeof 和 instanceof 的区别？
+   - typeof 主要用来判断数据类型
+   - instanceof 主要用于判断对象是否是某个构造函数的实例
 
 ### 013：闭包是什么? 闭包的用途? ⭐️
 
@@ -231,17 +193,26 @@ var b = 10;
 3. 动态导入脚本
 4. 模块化加载
 
-### 018：null和undefined的区别？
+### 018：null和undefined的区别？⭐️
 
 - null：空值
 - undefined：未定义
 
 ### 019：箭头函数和普通函数有什么区别？⭐️
 
-1. 箭头函数语法更加简洁
-2. 箭头函数没有this
-3. 箭头函数使用剩余参数（...args）替代普通函数中的 arguments
-4. 箭头函数不能作为构造函数
+1. 箭头函数使用 `=>` 定义，普通函数使用 `function` 关键字定义
+2. 箭头函数语法更加简洁（*省略括号*）
+3. 箭头函数全都是匿名函数，普通函数可以是匿名函数也可以是具名函数
+4. 箭头函数不能创建自己的this，只会从作用域链的上一层继承this，普通函数谁调用就指向谁
+5. 箭头函数使用剩余参数（...args）替代普通函数中的 arguments
+6. 箭头函数不能作为构造函数
+7. 箭头函数没有 `prototype`、`super`
+
+> 衍生问题：
+>
+> Q：为什么箭头函数不能作为构造函数？
+>
+> A：因为箭头函数没有自己的 `this` 绑定。
 
 ### 020：JavaScript 和 TypeScript的区别？⭐️
 
@@ -267,7 +238,7 @@ parseInt语法：`parseInt(string, radix)`
 
 第2次遍历：`parseInt("2", 1)`，将2解析为一进制，由于一进制没有数字2，所以返回NaN。
 
-地3次遍历：`parseInt("3", 2)`，将3解析为二进制，由于二进制没有数字2，所以返回NaN。
+第3次遍历：`parseInt("3", 2)`，将3解析为二进制，由于二进制没有数字3，所以返回NaN。
 
 ### 024：变量提升 ⭐️
 
@@ -284,9 +255,9 @@ JS 分为词法分析阶段和代码执⾏阶段。在词法分析阶段，变�
 1. 将小数转换为整数进行计算：可以将小数乘以一个倍数，使其变为整数，然后进行计算。最后再将结果除以倍数得到小数形式。
 2. 使用库或函数处理精度问题：Big.js/math.js/Decimal.js
 
-### 026：如何确保undefined的可靠性？
+### 026：为什么有的框架使用void(0)替代undefined？⭐️
 
-由于 undefined 是一个，void(0)
+在旧版的 js 中，`undefined` 并不是一个保留关键字，它的值可以被覆盖，导致不可预料的结果。为了确保获得原生的 `undefined` 值，所以有时会使用 `void(0)` 来代替直接使用 `undefined`。
 
 ### 027：LHS 和 RHS 是什么？会造成什么影响？
 
@@ -308,13 +279,137 @@ LHS（Left-Hand Side）和RHS（Right-Hand Side）是js对变量进行赋值和�
 5. URIError
 6. EvalError 
 
-### 030：js 中如何确定 this 的值？
+### 030：js 中如何确定 this 的值？⭐️
 
-如果是在全局作⽤域下，this 的值是全局对象，浏览器环境下是 window。 
+1. 如果是在全局作⽤域下，this 的值是全局对象
+2. 浏览器环境下是 window。 
+3. 函数中 this 的指向取决于函数的调⽤形式，在一些情况下也受到严格模式的影响：
+   - 作为普通函数调⽤：严格模式下，this 的值是 undefined，⾮严格模式下，this 指向全局对象。 
+   - 作为⽅法调⽤：this 指向所属对象。
+   - 作为构造函数调⽤：this 指向实例化的对象。 
+   - 通过 call, apply, bind 调⽤：this 指向的是第一个参数的值（*如果传入的是原始数据类型，会自动转换成对应的包装对象*），如果没有传递第1个参数，严格模式下 this 是 undefined，⾮严格模式下 this 指向全局对象。 
 
-函数中 this 的指向取决于函数的调⽤形式，在一些情况下也受到严格模式的影响。
+### 031：说说 new 操作符具体干了什么？⭐️
 
-1. 作为普通函数调⽤：严格模式下，this 的值是 undefined，⾮严格模式下，this 指向全局对象。 
-2. 作为⽅法调⽤：this 指向所属对象。
-3. 作为构造函数调⽤：this 指向实例化的对象。 
-4. 通过 call, apply, bind 调⽤：如果指定了第一个参数 thisArg，this 的值就是 thisArg 的值（如果是原始值，会包装为对象）；如果不传 thisArg，要判断严格模式，严格模式下 this 是 undefined，⾮严格模式下 this 指向全局对象。 
+1. 首先创建一个新的空对象
+2. 设置原型：将对象的原型指向构造函数的prototype
+3. 绑定 this指向，并执行构造函数
+4. 判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象
+
+实现原理：
+
+```js
+function $New(constructor, ...args) {
+  // 1. 创建一个新的空对象
+  const obj = {};
+  // 2. 将对象的原型指向构造函数的prototype
+  obj.__proto__ = constructor.prototype;
+  // 3. 绑定this，并执行构造函数
+  const result = constructor.apply(obj, args);
+  // 4. 返回对象
+  return result instanceof Object ? result : obj;
+}
+```
+
+### 032：let、const、var的区别？⭐️
+
+1. **块级作用域**：块作用域由 `{ }` 包括，`let` 和 `const` 具有块级作用域，`var` 不存在块级作用域。
+
+   块级作用域解决了ES5中的两个问题：
+
+   - 内层变量可能覆盖外层变量
+   - 用来计数的循环变量泄露为全局变量
+
+2. **变量提升**：`var` 存在变量提升，`let` 和 `const` 不存在变量提升，即在变量只能在声明之后使用，否在会报错。
+
+3. **添加全局属性**：浏览器的全局对象是 `window`，Node的全局对象是 `global`。`var` 声明的变量为全局变量，并且会将该变量添加为全局对象的属性，但是 `let` 和 `const` 不会。
+
+4. **重复声明**：`var` 声明变量时，可以重复声明变量，后声明的同名变量会覆盖之前声明的变量。`const` 和 `let` 不允许重复声明变量。
+
+5. **暂时性死区**：在使用 `let`、`const` 命令声明变量之前，该变量都是不可用的。这在语法上，称为 **暂时性死区**。使用 `var` 声明的变量不存在暂时性死区。
+
+6. **初始值设置**：在变量声明时，`var` 和 `let` 可以不用设置初始值。而 `const` 声明变量必须设置初始值。
+
+7. **指针指向**：`let` 和 `const` 都是ES6新增的用于创建变量的语法。 `let` 创建的变量是可以更改指针指向（可以重新赋值）。但 `const` 声明的变量是不允许改变指针的指向。
+
+| 区别               | `var` | `let` | `const` |
+| ------------------ | ----- | ----- | ------- |
+| 是否有块级作用域   | ×     | √     | √       |
+| 是否存在变量提升   | √     | ×     | ×       |
+| 是否添加全局属性   | √     | ×     | ×       |
+| 是否允许重复声明   | √     | ×     | ×       |
+| 是否存在暂时性死区 | ×     | √     | √       |
+| 是否必须设置初始值 | ×     | ×     | √       |
+| 能否改变指针指向   | √     | √     | ×       |
+
+### 033：如何将一个类似数组转换成真正的数组？
+
+- `Array.prototype.slice.call(arguments)`
+- `Array.from(arguments)`
+- `[...arguments]`
+
+### 034：XMLHttpRequest 基本使用
+
+```js
+// 1. 创建请求对象
+let xhr = new XMLHttpRequest();
+// 2. 配置请求
+xhr.open('POST', '/api/login', true);
+// → 设置请求头
+xhr.setRequestHeader('Content-Type', 'application/json');
+// → 设置响应类型
+xhr.responseType = 'json';
+// 3. 发送请求
+xhr.send(
+  JSON.stringify({
+    username: 'admin',
+    password: '123',
+  })
+);
+// 4. 监听请求
+xhr.onload = function () {
+  if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+    console.log(xhr.response);
+  } else {
+    console.log('err');
+  }
+};
+```
+
+`readyState` 主要有5个状态：
+
+- `0`：UNSENT，代理被创建，但尚未调用 `open()` 方法。
+- `1`：OPENED，`open()` 方法已经被调用。
+- `2`：HEADERS_RECEIVED，`send()` 方法已经被调用，并且头部和状态已经可获得。
+- `3`：LOADING，响应体部分正在被接收。
+- `4`：DONE，请求操作已经完成。这意味着数据传输已经彻底完成或失败。
+
+### 035：谈谈你对Promise的理解？⭐️
+
+`Promise`是异步编程的一种解决方案，它是一个对象，可以获取异步操作的消息，Promise 主要解决 **回调地狱** 的问题。
+
+Promise 的实例有 **三个状态**:
+
+- Pending：进行中
+- Fulfilled：已完成
+- Rejected：已拒绝
+
+Promise 的API主要有：
+
+1. `.then()`：链式调用
+2. `.catch()`：捕获异常
+3. `.finally()`
+4. `Promise.all()`：处理并发执行，全部兑现时
+5. `Promise.race()`：处理并发执行，它会在任何一个Promise完成（*无论是成功还时失败*）后返回结果。
+6. `Promise.any()`：处理并发执行，它会在任何一个Promise**解决**后返回结果。
+7. `Promise.reject()`：返回一个已拒绝的Promise
+8. `Promise.resolve()`：返回一个已完成的Promise
+
+### 036：谈谈你对 async/await 的理解？⭐️
+
+async/await 是Promise的语法糖，它是为了简化 Promise 的使用而设计的，使得我们可以以类似于同步代码的方式编写异步代码，便于理解和维护。
+
+通过在异步函数前面加上 `async` 关键字，这个函数会隐式地返回一个 Promise，而在函数内部使用 `await` 关键字来等待 Promise 的解决或拒绝，从而实现异步操作的同步化表达。
+
+### 037：Event Loop（事件循环）⭐️
+
