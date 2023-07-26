@@ -216,6 +216,9 @@ var b = 10;
 
 ### 020：JavaScript 和 TypeScript的区别？⭐️
 
+1. TypeScript 是 JavaScript 的超集，扩展了 JavaScript 的语法，支持面向对象编程的概念（*类、接口、继承、泛型等*）
+2. JavaScrip 动态类型语言，TypeScript 静态类型语言，提供了类型注解，在代码编译阶段就可以检查出数据类型的错误
+
 ### 021：为什么说Symbol是基本数据类型？
 
 因为Symbol 是没有构造函数（*constructor*） 的，不能通过 `new Symbol()` 获得实例。
@@ -411,5 +414,5 @@ async/await 是Promise的语法糖，它是为了简化 Promise 的使用而设�
 
 通过在异步函数前面加上 `async` 关键字，这个函数会隐式地返回一个 Promise，而在函数内部使用 `await` 关键字来等待 Promise 的解决或拒绝，从而实现异步操作的同步化表达。
 
-### 037：Event Loop（事件循环）⭐️
+
 

@@ -219,32 +219,22 @@ Diff算法是用于比较虚拟DOM，实现局部更新以达到性能优化的�
 
    - Vue2：选项式API
    - Vue3：选项式API / 组合式API
-
 2. 检测机制的变化
-
-   Vue3 中使用了ES6 的 Proxy API 对数据代理，监测的是整个对象，而不再是某个属性。
-
-   - 消除了 Vue2 当中基于 Object.defineProperty 的实现所存在的很多限制。
-   - Vue3可以监测到对象属性的添加和删除，可以监听数组的变化。
-   - Vue3支持 Map、Set结构。
-
-2. Diff算法优化（*参考020：Diff算法*）
-
-3. 建立数据的方式不同
+   - Vue2 基于Object.defineProperty 实现数据劫持
+   - Vue3 基于 ES6的Proxy API 对数据代理，检测的使整个对象。
+3. Diff算法优化（*参考020：Diff算法*）
+4. 建立数据的方式不同
 
    - Vue2：在data属性中定义数据
    - Vue3：在 `setup()` 函数中定义数据
-
-4. 生命周期钩子不同
+5. 生命周期钩子不同
 
    - Vue3的钩子函数在Vue2的基础上加了on，如：created → onCreated
    - beforeDestory 和 destoryed 更名为 onBeforeUnmount 和 onUnmounted
    - 用setup代替beforeCreate和created。
-
-5. 父子传参不同
+6. 父子传参不同
 
    - definProps
-   
 7. Vue3引入了新的优化方式——静态提升，通过在编译阶段处理静态节点，减少运行时的开销
 
 总结：**Vue3 性能更高、体积更小、更利于复用、代码维护更方便**
@@ -260,11 +250,13 @@ Vue 在实例初始化时遍历 data 中的所有属性，并使用 Object.defin
 4. 动态新增，删除对象属性无法拦截，只能用特定 set/delete API 代替
 5. 不支持 Map、Set 等数据结构
 
-Vue3 使用 Proxy 来监控数据的变化，Proxy 是 ES6 中提供的功能，其作用为：用于定义基本操作的自定义行为（如属性查找，赋值，枚举，函数调用等），相对于Object.defineProperty()，其有以下特点：
+Vue3 使用 Proxy 来监控数据的变化，监测的是整个对象，而不再是某个属性：
 
-1. Proxy 直接代理整个对象而非对象属性，这样只需做一层代理就可以监听同级结构下的所有属性变化，包括新增属性和删除属性。
-2. 它的处理方式是在 getter 中去递归响应式，这样的好处是真正访问到的内部属性才会变成响应式，简单的可以说是按需实现响应式，减少性能消耗。
-3. Proxy 可以监听数组的变化。
+1. 消除了  Object.defineProperty 存在的很多限制。
+2. 可以监测到对象属性的添加和删除，可以监听数组的变化
+3. 它的处理方式是在 getter 中去递归响应式，这样的好处是真正访问到的内部属性才会变成响应式，简单的可以说是按需实现响应式，减少性能消耗。
+4. Proxy 可以监听数组的变化。
+5. 支持Map、Set结构
 
 ### 026：Vue3 Diff算法和 Vue2 的区别？⭐️
 

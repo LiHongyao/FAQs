@@ -146,7 +146,7 @@ HTML5的离线储存可以让网页在用户离线时仍能够访问并显示内
 <label>Password:<input type="text"/></label>
 ```
 
-### 016：前端需要注意哪些SEO？
+### 016：前端需要注意哪些SEO？⭐️
 
 1. 合理设置 title 、 description 、 keywords
 2. 语义化标签
