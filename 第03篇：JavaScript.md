@@ -73,7 +73,7 @@
 
 原始数据类（原始数据类型）：`Number`、`String`、`Boolean`、`Null`、`Undefined`、`Symbol`、`BigInt`。
 
-引用数据类型：`Object`、`Function`、`Date`...
+引用数据类型：`Object`、`Function`
 
 两种类型的区别在于 **存储位置的不同**：（*了解*）
 
@@ -201,7 +201,7 @@ var b = 10;
 ### 019：箭头函数和普通函数有什么区别？⭐️
 
 1. 箭头函数使用 `=>` 定义，普通函数使用 `function` 关键字定义
-2. 箭头函数语法更加简洁（*省略括号*）
+2. 箭头函数语法更加简洁（*省略括号/return*）
 3. 箭头函数全都是匿名函数，普通函数可以是匿名函数也可以是具名函数
 4. 箭头函数不能创建自己的this，只会从作用域链的上一层继承this，普通函数谁调用就指向谁
 5. 箭头函数使用剩余参数（...args）替代普通函数中的 arguments
@@ -389,7 +389,7 @@ xhr.onload = function () {
 
 ### 035：谈谈你对Promise的理解？⭐️
 
-`Promise`是异步编程的一种解决方案，它是一个对象，可以获取异步操作的消息，Promise 主要解决 **回调地狱** 的问题。
+`Promise` 是异步编程的一种解决方案，它是一个对象，可以获取异步操作的消息，Promise 主要解决 **回调地狱** 的问题。
 
 Promise 的实例有 **三个状态**:
 
@@ -403,7 +403,7 @@ Promise 的API主要有：
 2. `.catch()`：捕获异常
 3. `.finally()`
 4. `Promise.all()`：处理并发执行，全部兑现时
-5. `Promise.race()`：处理并发执行，它会在任何一个Promise完成（*无论是成功还时失败*）后返回结果。
+5. `Promise.race()`：处理并发执行，它会在任何一个Promise完成（*无论是成功还是失败*）后返回结果。
 6. `Promise.any()`：处理并发执行，它会在任何一个Promise**解决**后返回结果。
 7. `Promise.reject()`：返回一个已拒绝的Promise
 8. `Promise.resolve()`：返回一个已完成的Promise
