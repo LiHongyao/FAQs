@@ -15,7 +15,7 @@
    - display：`inline-block/table-cell/flex/grid` 
    - overflow：`!visible `
 
-### 002：px/em/rem
+### 002：px/em/rem ⭐️
 
 px、rem、em都是用来表示长度或字体大小的单位，它们之间的主要区别在于相对性和继承性：
 
@@ -29,8 +29,8 @@ px、rem、em都是用来表示长度或字体大小的单位，它们之间的�
 ### 003：谈一谈盒子模型
 
 1. 组成：content - padding - border -margin
-2. 标准盒子模型
-3. IE盒子模型
+2. 标准盒子模型：box-sizing:content-box
+3. IE盒子模型：box-sizing:border-box
 
 ### 004：CSS3有哪些新特性？
 
